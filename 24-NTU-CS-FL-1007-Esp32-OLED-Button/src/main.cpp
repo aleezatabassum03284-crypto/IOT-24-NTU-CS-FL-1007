@@ -1,7 +1,8 @@
 /*
-  Homework-01 - Stage 1: OLED startup screen
-  Shows a title, button status and a counter (0) on the SSD1306 OLED.
-  OLED: I2C, SDA = GPIO 21, SCL = GPIO 22, address 0x3C
+  Homework-01 - Stage 2: Button input and counter (no debounce yet)
+  Button on GPIO 18 to GND, INPUT_PULLUP (pressed = LOW).
+  The count goes up when the button is pressed.
+  NOTE: there is no debounce here, so one press may count more than once.
 */
 
 #include <Arduino.h>
@@ -9,6 +10,7 @@
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 
+const int BUTTON_PIN = 18;
 const int SDA_PIN = 21;
 const int SCL_PIN = 22;
 const int SCREEN_WIDTH = 128;
@@ -17,9 +19,10 @@ const uint8_t OLED_ADDRESS = 0x3C;
 
 Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
 
+int lastState = HIGH;               // previous button reading
 unsigned int pressCount = 0;
 
-void drawScreen() {
+void drawScreen(int state) {
   display.clearDisplay();
   display.setTextColor(SSD1306_WHITE);
 
@@ -28,7 +31,8 @@ void drawScreen() {
   display.println("ESP32 Button Counter");
 
   display.setCursor(0, 20);
-  display.println("Button: RELEASED");
+  display.print("Button: ");
+  display.println(state == LOW ? "PRESSED" : "RELEASED");
 
   display.setTextSize(2);
   display.setCursor(0, 40);
@@ -40,6 +44,7 @@ void drawScreen() {
 
 void setup() {
   Serial.begin(115200);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
   Wire.begin(SDA_PIN, SCL_PIN);
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, OLED_ADDRESS)) {
@@ -47,10 +52,20 @@ void setup() {
     while (true) { delay(1000); }
   }
 
-  drawScreen();
+  drawScreen(HIGH);
   Serial.println("System ready. Count = 0");
 }
 
 void loop() {
-  // nothing yet
+  int state = digitalRead(BUTTON_PIN);
+
+  if (state != lastState) {         // the button changed
+    if (state == LOW) {             // it was pressed
+      pressCount++;
+      Serial.print("Press. Count = ");
+      Serial.println(pressCount);
+    }
+    drawScreen(state);
+    lastState = state;
+  }
 }
