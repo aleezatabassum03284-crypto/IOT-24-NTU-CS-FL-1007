@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"name": "24-NTU-CS-FL-1007-Esp32-OLED-Button",
+			"path": "../24-NTU-CS-FL-1007-Esp32-OLED-Button"
+		}
+	],
+	"settings": {}
+}
