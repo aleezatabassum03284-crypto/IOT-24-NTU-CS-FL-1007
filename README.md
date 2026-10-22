@@ -20,3 +20,5 @@ OLED Output Features
   Displays real-time brightness/duty-cycle percentages for both LEDs dynamically.
   Shows configured frequencies (1000Hz and 5000Hz) simultaneously on screen
   Refreshes data smoothly without lag during the fading loop.
+  <img width="1053" height="914" alt="WhatsApp Image 2026-10-22 at 4 03 29 PM" src="https://github.com/user-attachments/assets/89be83f2-9a57-400f-abc5-27e60ca7a32e" />
+
