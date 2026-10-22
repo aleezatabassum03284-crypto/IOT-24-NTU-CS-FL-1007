@@ -39,8 +39,6 @@ OLED Output Features
 <img width="940" height="570" alt="image" src="https://github.com/user-attachments/assets/0be3de6c-4f52-4537-af50-e1a2b166257e" />
 
 
-<img width="425" height="278" alt="image" src="https://github.com/user-attachments/assets/28ccece7-d40f-4499-bbeb-5a1440100a6c" />
-
 
 <img width="940" height="533" alt="image" src="https://github.com/user-attachments/assets/1568cd19-e467-4d23-a4be-aeac122b295c" />
 
